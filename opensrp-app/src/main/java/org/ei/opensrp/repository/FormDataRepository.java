@@ -7,8 +7,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import net.sqlcipher.database.SQLiteDatabase;
-
+import org.ei.opensrp.SteppingStoneChildrens.*;
 import org.ei.opensrp.Context;
+
 import org.ei.opensrp.domain.SyncStatus;
 import org.ei.opensrp.domain.form.FormSubmission;
 
@@ -53,6 +54,7 @@ public class FormDataRepository extends DrishtiRepository {
         TABLE_COLUMN_MAP.put(EligibleCoupleRepository.EC_TABLE_NAME, EligibleCoupleRepository.EC_TABLE_COLUMNS);
         TABLE_COLUMN_MAP.put(MotherRepository.MOTHER_TABLE_NAME, MotherRepository.MOTHER_TABLE_COLUMNS);
         TABLE_COLUMN_MAP.put(ChildRepository.CHILD_TABLE_NAME, ChildRepository.CHILD_TABLE_COLUMNS);
+        TABLE_COLUMN_MAP.put(SteppingStoneChildRepository.EC_TABLE_NAME,SteppingStoneChildRepository.EC_TABLE_COLUMNS);
 
 //        TABLE_COLUMN_MAP.put(PersonRepository.person_TABLE_NAME, PersonRepository.person_TABLE_COLUMNS);
         for(int i = 0;i< Context.bindtypes.size();i++){

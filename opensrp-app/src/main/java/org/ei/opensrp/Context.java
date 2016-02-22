@@ -3,7 +3,6 @@ package org.ei.opensrp;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
@@ -11,6 +10,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClients;
 import org.ei.opensrp.commonregistry.CommonRepository;
 import org.ei.opensrp.commonregistry.CommonRepositoryInformationHolder;
 import org.ei.opensrp.repository.AlertRepository;
+
 import org.ei.opensrp.repository.AllAlerts;
 import org.ei.opensrp.repository.AllBeneficiaries;
 import org.ei.opensrp.repository.AllEligibleCouples;
@@ -18,6 +18,7 @@ import org.ei.opensrp.repository.AllReports;
 import org.ei.opensrp.repository.AllServicesProvided;
 import org.ei.opensrp.repository.AllSettings;
 import org.ei.opensrp.repository.AllSharedPreferences;
+
 import org.ei.opensrp.repository.AllTimelineEvents;
 import org.ei.opensrp.repository.ChildRepository;
 import org.ei.opensrp.repository.DrishtiRepository;
@@ -31,6 +32,7 @@ import org.ei.opensrp.repository.Repository;
 import org.ei.opensrp.repository.ServiceProvidedRepository;
 import org.ei.opensrp.repository.SettingsRepository;
 import org.ei.opensrp.repository.TimelineEventRepository;
+import org.ei.opensrp.SteppingStoneChildrens.SteppingStoneChildRepository;
 import org.ei.opensrp.service.ANMService;
 import org.ei.opensrp.service.ActionService;
 import org.ei.opensrp.service.AlertService;
@@ -45,6 +47,7 @@ import org.ei.opensrp.service.HTTPAgent;
 import org.ei.opensrp.service.MotherService;
 import org.ei.opensrp.service.PendingFormSubmissionService;
 import org.ei.opensrp.service.ServiceProvidedService;
+import org.ei.opensrp.service.SteppingStoneChildService;
 import org.ei.opensrp.service.UserService;
 import org.ei.opensrp.service.ZiggyFileLoader;
 import org.ei.opensrp.service.ZiggyService;
@@ -74,6 +77,8 @@ import org.ei.opensrp.service.formSubmissionHandler.PNCVisitHandler;
 import org.ei.opensrp.service.formSubmissionHandler.RenewFPProductHandler;
 import org.ei.opensrp.service.formSubmissionHandler.TTHandler;
 import org.ei.opensrp.service.formSubmissionHandler.VitaminAHandler;
+import org.ei.opensrp.service.formSubmissionHandler.SteppingStoneChildRegistrationHandler;
+
 import org.ei.opensrp.sync.SaveANMLocationTask;
 import org.ei.opensrp.sync.SaveUserInfoTask;
 import org.ei.opensrp.util.Cache;
@@ -81,7 +86,9 @@ import org.ei.opensrp.util.Session;
 import org.ei.opensrp.view.contract.ANCClients;
 import org.ei.opensrp.view.contract.ECClients;
 import org.ei.opensrp.view.contract.FPClients;
+import org.ei.opensrp.SteppingStoneChildrens.SteppingStoneChildClients;
 import org.ei.opensrp.view.contract.HomeContext;
+import org.ei.opensrp.SteppingStoneChildrens.AllSteppingStoneChildren;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.contract.Villages;
 import org.ei.opensrp.view.contract.pnc.PNCClients;
@@ -192,6 +199,14 @@ public class Context {
 
     private DristhiConfiguration configuration;
 
+
+    private SteppingStoneChildRepository ss_childrenRepository;
+    private SteppingStoneChildRegistrationHandler ss_childRegistrationHandler;
+    private AllSteppingStoneChildren allSSChildren;
+
+    private Cache<SteppingStoneChildClients> ssChildClientCache;
+    private SteppingStoneChildService ss_childService;
+
     ///////////////////common bindtypes///////////////
     public static ArrayList<CommonRepositoryInformationHolder> bindtypes;
     /////////////////////////////////////////////////
@@ -263,7 +278,7 @@ public class Context {
                     ttHandler(), ifaHandler(), hbTestHandler(), deliveryOutcomeHandler(), pncRegistrationOAHandler(),
                     pncCloseHandler(), pncVisitHandler(), childImmunizationsHandler(), childRegistrationECHandler(),
                     childRegistrationOAHandler(), childCloseHandler(), childIllnessHandler(), vitaminAHandler(),
-                    deliveryPlanHandler(), ecEditHandler(), ancInvestigationsHandler());
+                    deliveryPlanHandler(), ecEditHandler(), ancInvestigationsHandler(),steppingStoneChildRegistrationHandler());
         }
         return formSubmissionRouter;
     }
@@ -487,6 +502,7 @@ public class Context {
             drishtireposotorylist.add(serviceProvidedRepository());
             drishtireposotorylist.add(formsVersionRepository());
             drishtireposotorylist.add(imageRepository());
+            drishtireposotorylist.add(SteppingStoneChildRepo());
             for(int i = 0;i < bindtypes.size();i++){
                 drishtireposotorylist.add(commonrepository(bindtypes.get(i).getBindtypename()));
             }
@@ -883,6 +899,9 @@ public class Context {
 
 
     }
+
+
+
     public String ReadFromfile(String fileName, android.content.Context context) {
         StringBuilder returnString = new StringBuilder();
         InputStream fIn = null;
@@ -920,4 +939,41 @@ public class Context {
 
 
     ///////////////////////////////////////////////////////////////////////////////
+
+    public AllSteppingStoneChildren allSSChildren(){
+        initRepository();
+        if (allSSChildren == null) {
+            allSSChildren = new AllSteppingStoneChildren(SteppingStoneChildRepo(), alertRepository(),
+                    timelineEventRepository());
+        }
+        return allSSChildren;
+    }
+
+    private SteppingStoneChildRepository SteppingStoneChildRepo() {
+        if (ss_childrenRepository == null) {
+            ss_childrenRepository = new SteppingStoneChildRepository();
+        }
+        return ss_childrenRepository;
+    }
+
+    public SteppingStoneChildService SteppingStoneChildService() {
+        if (ss_childService == null) {
+            ss_childService = new SteppingStoneChildService(allSSChildren(), allTimelineEvents(), allBeneficiaries());
+        }
+        return ss_childService;
+    }
+
+    public Cache<SteppingStoneChildClients> ssChildClientCache() {
+        if (ssChildClientCache == null) {
+            ssChildClientCache = new Cache<SteppingStoneChildClients>();
+        }
+        return ssChildClientCache;
+    }
+
+    private SteppingStoneChildRegistrationHandler steppingStoneChildRegistrationHandler() {
+        if (ss_childRegistrationHandler == null) {
+            ss_childRegistrationHandler = new SteppingStoneChildRegistrationHandler(SteppingStoneChildService());
+        }
+        return ss_childRegistrationHandler;
+    }
 }

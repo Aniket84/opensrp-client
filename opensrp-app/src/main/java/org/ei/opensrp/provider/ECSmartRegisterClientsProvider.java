@@ -120,7 +120,6 @@ public class ECSmartRegisterClientsProvider implements SmartRegisterClientsProvi
     public SmartRegisterClients getClients() {
         return controller.getClients();
     }
-
     @Override
     public SmartRegisterClients updateClients(FilterOption villageFilter, ServiceModeOption serviceModeOption,
                                               FilterOption searchFilter, SortOption sortOption) {

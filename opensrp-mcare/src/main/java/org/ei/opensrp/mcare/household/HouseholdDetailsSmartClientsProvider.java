@@ -57,16 +57,15 @@ public class HouseholdDetailsSmartClientsProvider implements SmartRegisterClient
 
     @Override
     public View getView(SmartRegisterClient smartRegisterClient, View convertView, ViewGroup viewGroup) {
-        ViewGroup itemView = viewGroup;
+        ViewGroup itemView;
 
-        CommonPersonObjectClient pc = (CommonPersonObjectClient) smartRegisterClient;
-        if(pc.getDetails().get("FWELIGIBLE").equalsIgnoreCase("1")) {
-
-            itemView = (ViewGroup) inflater().inflate(R.layout.household_inhabitants_register_clients, null);
+        itemView = (ViewGroup) inflater().inflate(R.layout.smart_register_ss_child_client, null);
             TextView name = (TextView) itemView.findViewById(R.id.name);
+        TextView id = (TextView) itemView.findViewById(R.id.id);
+        TextView uid = (TextView) itemView.findViewById(R.id.uid);
             TextView age = (TextView) itemView.findViewById(R.id.age);
-            TextView registerlink = (TextView) itemView.findViewById(R.id.registerlink);
-            registerlink.setPaintFlags(registerlink.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
+            TextView dob = (TextView) itemView.findViewById(R.id.dob);
+
 
 
 

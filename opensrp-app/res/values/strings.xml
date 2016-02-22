@@ -303,5 +303,12 @@
     <string name="ic_keyboard_arrow_left">&#xe0c6;</string>
     <string name="ic_keyboard_arrow_right">&#xe0c7;</string>
     <string name="ic_keyboard_arrow_up">&#xe0c8;</string>
+    <string name="Cname">Child</string>
+    <string name="Cuid">UID</string>
+    <string name="Cdob">DateOfBirth</string>
+    <string name="Cage">Age</string>
+    <string name="SPACE" />
+    <string name="ChildSearch">Search for Children</string>
+    <string name="sschild_selection">All Children Details</string>
 
 </resources>

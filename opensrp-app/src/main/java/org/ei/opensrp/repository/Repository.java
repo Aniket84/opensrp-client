@@ -67,6 +67,7 @@ public class Repository extends SQLiteOpenHelper {
 
     private String password() {
         return session.password();
+      //  return "";
     }
 
     public void deleteRepository() {

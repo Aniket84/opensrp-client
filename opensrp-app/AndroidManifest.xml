@@ -122,6 +122,10 @@
                 android:screenOrientation="landscape"
                 android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"/>
 
+        <activity
+            android:name=".SteppingStoneChildrens.SteppingStoneChildSmartRegisterActivity"
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
+            android:screenOrientation="landscape"/>
 
         <activity android:name=".view.activity.NativeHomeActivity"
                   android:screenOrientation="landscape">

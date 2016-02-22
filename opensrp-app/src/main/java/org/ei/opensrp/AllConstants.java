@@ -94,6 +94,7 @@ public class AllConstants {
         public static final String RECORD_ECPS = "record_ecps";
         public static final String FP_REFERRAL_FOLLOWUP = "fp_referral_followup";
         public static final String FP_FOLLOWUP = "fp_followup";
+        public static final String SS_CHILD_REG = "ss_child_reg";
     }
 
     public class ECRegistrationFields {

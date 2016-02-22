@@ -3,6 +3,7 @@ package org.ei.opensrp.view.controller;
 import android.app.Activity;
 import android.content.Intent;
 import org.ei.opensrp.view.activity.*;
+import org.ei.opensrp.SteppingStoneChildrens.*;
 
 import static org.ei.opensrp.view.controller.ProfileNavigationController.*;
 
@@ -24,7 +25,8 @@ public class NavigationController {
     }
 
     public void startECSmartRegistry() {
-        activity.startActivity(new Intent(activity, NativeECSmartRegisterActivity.class));
+   //  activity.startActivity(new Intent(activity, NativeECSmartRegisterActivity.class));
+       activity.startActivity(new Intent(activity,SteppingStoneChildSmartRegisterActivity.class));
     }
 
     public void startFPSmartRegistry() {
