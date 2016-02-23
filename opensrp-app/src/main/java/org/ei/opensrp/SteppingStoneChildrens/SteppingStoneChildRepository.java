@@ -75,8 +75,13 @@ public class SteppingStoneChildRepository extends DrishtiRepository {
     public  List<SteppingStoneChildren> allSteppingStoneChildren() {
         SQLiteDatabase database = masterRepository.getReadableDatabase();
         Cursor cursor = database.query(EC_TABLE_NAME, EC_TABLE_COLUMNS,
-                IS_CLOSED_COLUMN + " = ?", new String[]{IN_AREA, NOT_CLOSED}, null, null, null, null);
+               null,null, null, null, null);
+      //  String queryString = "SELECT * FROM "+EC_TABLE_NAME;
+     //   Cursor cursor = database.rawQuery(queryString,null);
         return readAllChildren(cursor);
+
+
+
     }
 
     public List<SteppingStoneChildren> findByCaseIDs(String... caseIds) {
