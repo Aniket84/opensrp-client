@@ -310,5 +310,8 @@
     <string name="SPACE" />
     <string name="ChildSearch">Search for Children</string>
     <string name="sschild_selection">All Children Details</string>
+    <string name="ChildHeader">Children</string>
+    <string name="childage">Age</string>
+    <string name="space">" "</string>
 
 </resources>

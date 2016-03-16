@@ -4,13 +4,13 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_height"
-    android:weightSum="10">
+    android:weightSum="7">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:layout_margin="5dp">
 
         <TextView
@@ -40,7 +40,7 @@
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:layout_margin="5dp">
 
         <TextView
@@ -48,9 +48,16 @@
             android:layout_height="0dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
-            android:id="@+id/uid"
-            android:layout_weight="2" />
+            android:id="@+id/dob"
+            android:layout_weight="1" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/age"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <ImageView
@@ -62,47 +69,7 @@
         android:orientation="horizontal"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="2"
-        android:layout_margin="5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/dob" />
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="@dimen/smart_register_client_divider_height"
-        android:layout_height="fill_parent"
-        android:src="@color/smart_register_client_divider_color" />
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="2"
-        android:layout_margin="5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
-            android:id="@+id/age" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="@dimen/smart_register_client_divider_height"
-        android:layout_height="fill_parent"
-        android:src="@color/smart_register_client_divider_color" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:background="@color/light_blue"
         >
 
@@ -113,7 +80,7 @@
             android:textColor="@color/client_list_header_dark_grey"
             android:id="@+id/follow_up"
             android:background="@drawable/transparent_blue_background"
-            />
+            android:layout_weight="1" />
     </LinearLayout>
 
 </LinearLayout>

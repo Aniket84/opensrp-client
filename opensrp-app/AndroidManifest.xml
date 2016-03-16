@@ -89,9 +89,9 @@
                 android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
                 android:screenOrientation="landscape"/>
         <activity
-                android:name=".view.activity.FormActivity"
-                android:theme="@style/My.Holo.Light.FullScreen"
-                android:screenOrientation="portrait"/>
+            android:name=".view.activity.FormActivity"
+            android:theme="@style/My.Holo.Light.FullScreen"
+            android:screenOrientation="portrait"/>
         <activity
                 android:name=".view.activity.MicroFormActivity"
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
@@ -99,7 +99,7 @@
         <activity
                 android:name=".view.activity.NativeECSmartRegisterActivity"
                 android:screenOrientation="landscape"
-                android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"/>
+                android:theme="@style/AppThemeNoTitle"/>
 
         <activity
                 android:name=".view.activity.NativeChildSmartRegisterActivity"
@@ -122,12 +122,15 @@
                 android:screenOrientation="landscape"
                 android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"/>
 
-
+        <activity
+            android:name=".children.NativeChildrenSmartRegisterActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppThemeNoTitle"/>
 
         <activity
             android:name=".SteppingStoneChildrens.SteppingStoneChildSmartRegisterActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/AppThemeNoActionBarAndTitle"/>
+            android:theme="@style/AppThemeNoTitle"/>
 
         <activity android:name=".view.activity.NativeHomeActivity"
                   android:screenOrientation="landscape"

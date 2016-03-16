@@ -4,6 +4,10 @@
     {
       "name": "person",
       "columns" : [ {"name": "age"}]
-    }
+    },
+   {
+     "name": "children",
+     "columns" : [ ]
+   }
  ]
 }

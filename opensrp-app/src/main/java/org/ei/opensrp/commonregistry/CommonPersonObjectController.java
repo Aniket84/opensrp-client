@@ -37,6 +37,8 @@ public class CommonPersonObjectController {
 
     ArrayList <ControllerFilterMap> filtermap;
 
+
+
     public enum ByColumnAndByDetails{
         byColumn,byDetails,byrelationalid;
     }
@@ -135,7 +137,7 @@ public class CommonPersonObjectController {
     }
     public CommonPersonObjectController(AllCommonsRepository allpersons,
                                         AllBeneficiaries allBeneficiaries, Cache<String> cache,
-                                        Cache<CommonPersonObjectClients> personClientsCache, String nameString, String bindtype,ArrayList <ControllerFilterMap> filtermap,ByColumnAndByDetails byColumnAndByDetails,String null_check_key,ByColumnAndByDetails byColumnAndByDetailsNullcheck ) {
+                                        Cache<CommonPersonObjectClients> personClientsCache, String nameString, String bindtype) {
         this.allpersonobjects = allpersons;
         this.allBeneficiaries = allBeneficiaries;
         this.cache = cache;

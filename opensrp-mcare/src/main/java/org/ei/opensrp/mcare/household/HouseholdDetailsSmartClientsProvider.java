@@ -28,9 +28,7 @@ import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
-/**
- * Created by user on 2/12/15.
- */
+
 public class HouseholdDetailsSmartClientsProvider implements SmartRegisterClientsProvider {
 
     private final LayoutInflater inflater;

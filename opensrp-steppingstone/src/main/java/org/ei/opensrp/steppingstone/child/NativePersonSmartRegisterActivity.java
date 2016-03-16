@@ -1,20 +1,18 @@
-package org.ei.opensrp.SteppingStoneChildrens;
+package org.ei.opensrp.steppingstone.child;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.view.View;
 
 import org.ei.opensrp.R;
 import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
-import org.ei.opensrp.provider.ECSmartRegisterClientsProvider;
+import org.ei.opensrp.commonregistry.CommonObjectSort;
+import org.ei.opensrp.commonregistry.CommonPersonObjectController;
+import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.ECClient;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
-import org.ei.opensrp.view.controller.ECSmartRegisterController;
 import org.ei.opensrp.view.controller.VillageController;
 import org.ei.opensrp.view.dialog.AllClientsFilter;
-import org.ei.opensrp.view.dialog.AllEligibleCoupleServiceMode;
 import org.ei.opensrp.view.dialog.BPLSort;
 import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.DialogOptionMapper;
@@ -23,31 +21,23 @@ import org.ei.opensrp.view.dialog.ECNumberSort;
 import org.ei.opensrp.view.dialog.EditOption;
 import org.ei.opensrp.view.dialog.FilterOption;
 import org.ei.opensrp.view.dialog.HighPrioritySort;
-import org.ei.opensrp.view.dialog.LocationSelectorDialogFragment;
 import org.ei.opensrp.view.dialog.NameSort;
 import org.ei.opensrp.view.dialog.OpenFormOption;
 import org.ei.opensrp.view.dialog.SCSort;
 import org.ei.opensrp.view.dialog.STSort;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
-import org.ei.opensrp.domain.form.FieldOverrides;
+
 import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Iterables.toArray;
-import static org.ei.opensrp.AllConstants.FormNames.ANC_REGISTRATION;
-import static org.ei.opensrp.AllConstants.FormNames.CHILD_REGISTRATION_EC;
-import static org.ei.opensrp.AllConstants.FormNames.EC_CLOSE;
-import static org.ei.opensrp.AllConstants.FormNames.EC_EDIT;
-import static org.ei.opensrp.AllConstants.FormNames.EC_REGISTRATION;
-import static org.ei.opensrp.AllConstants.FormNames.FP_CHANGE;
-import static org.ei.opensrp.AllConstants.FormNames.SS_CHILD_REG;
 
-public class SteppingStoneChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivity {
+public class NativePersonSmartRegisterActivity extends SecuredNativeSmartRegisterActivity {
 
-    private SteppingStoneChildClientsProvider clientProvider = null;
-    private SteppingStoneChildSmartRegisterController controller;
+    private SmartRegisterClientsProvider clientProvider = null;
+    private CommonPersonObjectController controller;
     private VillageController villageController;
     private DialogOptionMapper dialogOptionMapper;
-    public static final String locationDialogTAG = "locationDialogTAG";
+
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
 
     @Override
@@ -61,7 +51,7 @@ public class SteppingStoneChildSmartRegisterActivity extends SecuredNativeSmartR
 
             @Override
             public ServiceModeOption serviceMode() {
-                return new AllChildServiceMode(clientsProvider());
+                return new PersonServiceModeOption(clientsProvider());
             }
 
             @Override
@@ -101,12 +91,12 @@ public class SteppingStoneChildSmartRegisterActivity extends SecuredNativeSmartR
             public DialogOption[] sortingOptions() {
                 return new DialogOption[]{new NameSort(), new ECNumberSort(),
                         new HighPrioritySort(), new BPLSort(),
-                        new SCSort(), new STSort()};
+                        new SCSort(), new STSort(),new CommonObjectSort(true,false,true,"age")};
             }
 
             @Override
             public String searchHint() {
-                return getString(R.string.ChildSearch);
+                return getString(R.string.str_ec_search_hint);
             }
         };
     }
@@ -114,7 +104,7 @@ public class SteppingStoneChildSmartRegisterActivity extends SecuredNativeSmartR
     @Override
     protected SmartRegisterClientsProvider clientsProvider() {
         if (clientProvider == null) {
-            clientProvider = new SteppingStoneChildClientsProvider(
+            clientProvider = new PersonClientsProvider(
                     this, clientActionHandler, controller);
         }
         return clientProvider;
@@ -122,19 +112,16 @@ public class SteppingStoneChildSmartRegisterActivity extends SecuredNativeSmartR
 
     private DialogOption[] getEditOptions() {
         return new DialogOption[]{
-                new OpenFormOption(getString(R.string.str_register_anc_form), ANC_REGISTRATION, formController),
-                new OpenFormOption(getString(R.string.str_register_fp_form), FP_CHANGE, formController),
-                new OpenFormOption(getString(R.string.str_register_child_form), CHILD_REGISTRATION_EC, formController),
-                new OpenFormOption(getString(R.string.str_edit_ec_form), EC_EDIT, formController),
-                new OpenFormOption(getString(R.string.str_close_ec_form), EC_CLOSE, formController),
+
+                new OpenFormOption("tb followup", "tb_followup", formController)
         };
     }
 
     @Override
     protected void onInitialization() {
-        controller = new SteppingStoneChildSmartRegisterController(context.allSSChildren(),
+        controller = new CommonPersonObjectController(context.allCommonsRepositoryobjects("person"),
                 context.allBeneficiaries(), context.listCache(),
-                context.ssChildClientCache());
+                context.personObjectClientsCache(),"name","person");
         villageController = new VillageController(context.allEligibleCouples(),
                 context.listCache(), context.villagesCache());
         dialogOptionMapper = new DialogOptionMapper();
@@ -148,27 +135,26 @@ public class SteppingStoneChildSmartRegisterActivity extends SecuredNativeSmartR
     }
 
     @Override
-    public void startRegistration() {
-
-        FieldOverrides fieldOverrides = new
-                FieldOverrides(context.anmLocationController().getLocationJSON());
-        startFormActivity("ss_child_reg", null, fieldOverrides.getJSONString());
+    protected void startRegistration() {
+        FieldOverrides fieldOverrides = new FieldOverrides(context.anmLocationController().getLocationJSON());
+        startFormActivity("hh_reg", null,fieldOverrides.getJSONString());
     }
 
     private class ClientActionHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            int i = view.getId();
-            if (i == R.id.profile_info_layout) {
-                showProfileView((SteppingStoneChildClient) view.getTag());
-
-            } else if (i == R.id.btn_edit) {
-                showFragmentDialog(new EditDialogOptionModel(), view.getTag());
-
+            switch (view.getId()) {
+                case R.id.profile_info_layout:
+                    showProfileView((ECClient) view.getTag());
+                    break;
+//                case R.id.follow_up:
+//                    Log.v("follow up check","a lot is done");
+//                    showFragmentDialog(new EditDialogOptionModel(), view.getTag());
+//                    break;
             }
         }
 
-        private void showProfileView(SteppingStoneChildClient client) {
+        private void showProfileView(ECClient client) {
             navigationController.startEC(client.entityId());
         }
     }

@@ -14,5 +14,13 @@
         "kind": "one_to_many",
         "from": "mother.id",
         "to": "child.motherCaseId"
+    },
+    {
+        "parent": "mother",
+        "child": "childdren",
+        "field": "children",
+        "kind": "one_to_many",
+        "from": "mother.id",
+        "to": "child.motherCaseId"
     }
 ]

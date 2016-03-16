@@ -1,13 +1,16 @@
-package org.ei.opensrp.SteppingStoneChildrens;
+package org.ei.opensrp.children;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Button;
+import android.widget.TextView;
 
 import org.ei.opensrp.R;
+import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
@@ -18,9 +21,10 @@ import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
-import android.widget.TextView;
-
-public class SteppingStoneChildClientsProvider implements SmartRegisterClientsProvider {
+/**
+ * Created by user on 2/12/15.
+ */
+public class ChildrenClientsProvider implements SmartRegisterClientsProvider {
 
     private final LayoutInflater inflater;
     private final Context context;
@@ -29,13 +33,11 @@ public class SteppingStoneChildClientsProvider implements SmartRegisterClientsPr
     private final int txtColorBlack;
     private final AbsListView.LayoutParams clientViewLayoutParams;
 
-    protected SteppingStoneChildSmartRegisterController controller;
+    protected CommonPersonObjectController controller;
 
-    private Drawable iconPencilDrawable;
-
-    public SteppingStoneChildClientsProvider(Context context,
-                                             View.OnClickListener onClickListener,
-                                             SteppingStoneChildSmartRegisterController controller) {
+    public ChildrenClientsProvider(Context context,
+                                   View.OnClickListener onClickListener,
+                                   CommonPersonObjectController controller) {
         this.onClickListener = onClickListener;
         this.controller = controller;
         this.context = context;
@@ -54,26 +56,28 @@ public class SteppingStoneChildClientsProvider implements SmartRegisterClientsPr
         TextView id = (TextView)itemView.findViewById(R.id.id);
         TextView name = (TextView)itemView.findViewById(R.id.name);
         TextView age = (TextView)itemView.findViewById(R.id.age);
-        TextView uid = (TextView)itemView.findViewById(R.id.id);
         TextView dob = (TextView)itemView.findViewById(R.id.dob);
 
-        SteppingStoneChildClient client = (SteppingStoneChildClient) smartRegisterClient;
-        id.setText(client.caseid());
-        name.setText(client.details("Name")!=null?client.details("Name"):"");
-        age.setText(client.details("Age")!=null?client.details("Age"):"");
-        uid.setText(client.details("UID")!=null?client.details("UID"):"");
-        dob.setText(client.details("DOB")!=null?client.details("DOB"):"");
+      //  Button follow_up = (Button)itemView.findViewById(R.id.follow_up);
+       // follow_up.setOnClickListener(onClickListener);
+       // follow_up.setTag(smartRegisterClient);
 
+        CommonPersonObjectClient pc = (CommonPersonObjectClient) smartRegisterClient;
+//
+        id.setText(pc.getDetails().get("UID")!=null?pc.getDetails().get("UID"):"");
+        name.setText(pc.getDetails().get("Name")!=null?pc.getDetails().get("Name"):"");
+        age.setText(pc.getColumnmaps().get("Age")!=null?pc.getColumnmaps().get("Age"):"");
+
+        dob.setText(pc.getColumnmaps().get("DOB")!=null?pc.getColumnmaps().get("DOB") : "");
         itemView.setLayoutParams(clientViewLayoutParams);
         return itemView;
     }
-
-
 
     @Override
     public SmartRegisterClients getClients() {
         return controller.getClients();
     }
+
     @Override
     public SmartRegisterClients updateClients(FilterOption villageFilter, ServiceModeOption serviceModeOption,
                                               FilterOption searchFilter, SortOption sortOption) {
