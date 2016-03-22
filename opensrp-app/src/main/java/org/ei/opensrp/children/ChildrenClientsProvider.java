@@ -6,6 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.ei.opensrp.R;
@@ -50,27 +54,32 @@ public class ChildrenClientsProvider implements SmartRegisterClientsProvider {
 
     @Override
     public View getView(SmartRegisterClient smartRegisterClient, View convertView, ViewGroup viewGroup) {
-        ViewGroup itemView;
+        ViewHolder viewHolder;
+        if (convertView == null){
+            convertView = (ViewGroup) inflater().inflate(R.layout.smart_register_ss_child_client, null);
+            viewHolder = new ViewHolder();
 
-        itemView = (ViewGroup) inflater().inflate(R.layout.smart_register_ss_child_client, null);
-        TextView id = (TextView)itemView.findViewById(R.id.id);
-        TextView name = (TextView)itemView.findViewById(R.id.name);
-        TextView age = (TextView)itemView.findViewById(R.id.age);
-        TextView dob = (TextView)itemView.findViewById(R.id.dob);
 
-      //  Button follow_up = (Button)itemView.findViewById(R.id.follow_up);
-       // follow_up.setOnClickListener(onClickListener);
-       // follow_up.setTag(smartRegisterClient);
+            viewHolder.id = (TextView)convertView.findViewById(R.id.id);
+            viewHolder.name = (TextView)convertView.findViewById(R.id.name);
+            viewHolder.age = (TextView)convertView.findViewById(R.id.age);
+            viewHolder.dob = (TextView)convertView.findViewById(R.id.dob);
+
+        }else{
+
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+
 
         CommonPersonObjectClient pc = (CommonPersonObjectClient) smartRegisterClient;
 //
-        id.setText(pc.getDetails().get("UID")!=null?pc.getDetails().get("UID"):"");
-        name.setText(pc.getDetails().get("Name")!=null?pc.getDetails().get("Name"):"");
-        age.setText(pc.getColumnmaps().get("Age")!=null?pc.getColumnmaps().get("Age"):"");
+        viewHolder.id.setText(pc.getDetails().get("UID")!=null?pc.getDetails().get("UID"):"");
+        viewHolder.name.setText(pc.getDetails().get("Name")!=null?pc.getDetails().get("Name"):"");
+        viewHolder.age.setText(pc.getDetails().get("Age")!=null?pc.getDetails().get("Age"):"");
+        viewHolder.dob.setText(pc.getDetails().get("DOB") != null ? pc.getDetails().get("DOB") : "");
 
-        dob.setText(pc.getColumnmaps().get("DOB")!=null?pc.getColumnmaps().get("DOB") : "");
-        itemView.setLayoutParams(clientViewLayoutParams);
-        return itemView;
+        convertView.setLayoutParams(clientViewLayoutParams);
+        return convertView;
     }
 
     @Override
@@ -96,5 +105,14 @@ public class ChildrenClientsProvider implements SmartRegisterClientsProvider {
 
     public LayoutInflater inflater() {
         return inflater;
+    }
+
+    class ViewHolder {
+
+        TextView id ;
+        TextView name ;
+        TextView dob;
+        TextView age;
+
     }
 }
