@@ -1,10 +1,9 @@
-package org.ei.opensrp.steppingstone.child;
+package org.ei.opensrp.steppingstone.children;
 
 import android.view.View;
 
 import org.ei.opensrp.R;
 import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
-import org.ei.opensrp.commonregistry.CommonObjectSort;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
@@ -13,25 +12,20 @@ import org.ei.opensrp.view.contract.ECClient;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.controller.VillageController;
 import org.ei.opensrp.view.dialog.AllClientsFilter;
-import org.ei.opensrp.view.dialog.BPLSort;
 import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.DialogOptionMapper;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
-import org.ei.opensrp.view.dialog.ECNumberSort;
 import org.ei.opensrp.view.dialog.EditOption;
 import org.ei.opensrp.view.dialog.FilterOption;
-import org.ei.opensrp.view.dialog.HighPrioritySort;
 import org.ei.opensrp.view.dialog.NameSort;
 import org.ei.opensrp.view.dialog.OpenFormOption;
-import org.ei.opensrp.view.dialog.SCSort;
-import org.ei.opensrp.view.dialog.STSort;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
 
 import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Iterables.toArray;
 
-public class NativePersonSmartRegisterActivity extends SecuredNativeSmartRegisterActivity {
+public class NativeChildrenSmartRegisterActivity extends SecuredNativeSmartRegisterActivity {
 
     private SmartRegisterClientsProvider clientProvider = null;
     private CommonPersonObjectController controller;
@@ -51,7 +45,7 @@ public class NativePersonSmartRegisterActivity extends SecuredNativeSmartRegiste
 
             @Override
             public ServiceModeOption serviceMode() {
-                return new PersonServiceModeOption(clientsProvider());
+                return new ChildrenServiceModeOption(clientsProvider());
             }
 
             @Override
@@ -89,9 +83,10 @@ public class NativePersonSmartRegisterActivity extends SecuredNativeSmartRegiste
 
             @Override
             public DialogOption[] sortingOptions() {
-                return new DialogOption[]{new NameSort(), new ECNumberSort(),
-                        new HighPrioritySort(), new BPLSort(),
-                        new SCSort(), new STSort(),new CommonObjectSort(true,false,true,"age")};
+                return new DialogOption[]{new NameSort()};
+                //, new ECNumberSort(),
+                  //      new HighPrioritySort(), new BPLSort(),
+                    //    new SCSort(), new STSort(),new CommonObjectSort(true,false,true,"age")};
             }
 
             @Override
@@ -104,7 +99,7 @@ public class NativePersonSmartRegisterActivity extends SecuredNativeSmartRegiste
     @Override
     protected SmartRegisterClientsProvider clientsProvider() {
         if (clientProvider == null) {
-            clientProvider = new PersonClientsProvider(
+            clientProvider = new ChildrenClientsProvider(
                     this, clientActionHandler, controller);
         }
         return clientProvider;
@@ -119,9 +114,9 @@ public class NativePersonSmartRegisterActivity extends SecuredNativeSmartRegiste
 
     @Override
     protected void onInitialization() {
-        controller = new CommonPersonObjectController(context.allCommonsRepositoryobjects("person"),
+        controller = new CommonPersonObjectController(context.allCommonsRepositoryobjects("children"),
                 context.allBeneficiaries(), context.listCache(),
-                context.personObjectClientsCache(),"name","person");
+                context.personObjectClientsCache(),"Name","children");
         villageController = new VillageController(context.allEligibleCouples(),
                 context.listCache(), context.villagesCache());
         dialogOptionMapper = new DialogOptionMapper();
@@ -135,18 +130,18 @@ public class NativePersonSmartRegisterActivity extends SecuredNativeSmartRegiste
     }
 
     @Override
-    protected void startRegistration() {
+    public void startRegistration() {
         FieldOverrides fieldOverrides = new FieldOverrides(context.anmLocationController().getLocationJSON());
-        startFormActivity("hh_reg", null,fieldOverrides.getJSONString());
+        startFormActivity("ss_child_reg", null,fieldOverrides.getJSONString());
     }
 
     private class ClientActionHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.profile_info_layout:
-                    showProfileView((ECClient) view.getTag());
-                    break;
+              //  case R.id.profile_info_layout:
+                //    showProfileView((ECClient) view.getTag());
+                  //  break;
 //                case R.id.follow_up:
 //                    Log.v("follow up check","a lot is done");
 //                    showFragmentDialog(new EditDialogOptionModel(), view.getTag());

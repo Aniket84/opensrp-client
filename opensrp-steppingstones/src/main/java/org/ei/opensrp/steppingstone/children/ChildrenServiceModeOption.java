@@ -1,4 +1,4 @@
-package org.ei.opensrp.steppingstone.child;
+package org.ei.opensrp.steppingstone.children;
 
 import android.view.View;
 
@@ -16,15 +16,15 @@ import org.ei.opensrp.view.viewHolder.NativePNCSmartRegisterViewHolder;
 
 import static org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity.ClientsHeaderProvider;
 
-public class PersonServiceModeOption extends ServiceModeOption {
+public class ChildrenServiceModeOption extends ServiceModeOption {
 
-    public PersonServiceModeOption(SmartRegisterClientsProvider provider) {
+    public ChildrenServiceModeOption(SmartRegisterClientsProvider provider) {
         super(provider);
     }
 
     @Override
     public String name() {
-        return "All TB Registration Patients";
+        return "All Children Details";
     }
 
     @Override
@@ -32,7 +32,7 @@ public class PersonServiceModeOption extends ServiceModeOption {
         return new ClientsHeaderProvider() {
             @Override
             public int count() {
-                return 7;
+                return 3;
             }
 
             @Override
@@ -42,15 +42,14 @@ public class PersonServiceModeOption extends ServiceModeOption {
 
             @Override
             public int[] weights() {
-                return new int[]{1, 1, 1, 1, 1, 1, 1};
+                return new int[]{3,3,1};
             }
 
             @Override
             public int[] headerTextResourceIds() {
                 return new int[]{
-                        R.string.tb_header_name, R.string.tb_header_status, R.string.tb_header_risk_factors,
-                        R.string.tb_header_treatment, R.string.tb_header_labresults, R.string.header_edit,
-                        R.string.header_edit};
+                       R.string.ChildHeader, R.string.childage,
+                       R.string.space};
             }
         };
     }
