@@ -888,7 +888,7 @@ public class Context {
                 String bindname = bindtypeObjects.getJSONObject(i).getString("name");
                 String [] columNames = new String[ bindtypeObjects.getJSONObject(i).getJSONArray("columns").length()];
                 for(int j = 0 ; j < columNames.length;j++){
-                  columNames[j] =  bindtypeObjects.getJSONObject(i).getJSONArray("columns").getJSONObject(j).getString("name");
+                    columNames[j] =  bindtypeObjects.getJSONObject(i).getJSONArray("columns").getJSONObject(j).getString("name");
                 }
                 bindtypes.add(new CommonRepositoryInformationHolder(bindname,columNames));
                 Log.v("bind type logs",bindtypeObjects.getJSONObject(i).getString("name"));

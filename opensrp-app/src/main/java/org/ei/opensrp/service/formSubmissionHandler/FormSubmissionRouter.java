@@ -74,7 +74,7 @@ public class FormSubmissionRouter {
         handlerMap.put(DELIVERY_PLAN, deliveryPlanHandler);
         handlerMap.put(EC_EDIT, ecEditHandler);
         handlerMap.put(ANC_INVESTIGATIONS, ancInvestigationsHandler);
-       handlerMap.put(SS_CHILD_REG, steppingStoneChildRegistrationHandler);
+        handlerMap.put(SS_CHILD_REG, steppingStoneChildRegistrationHandler);
     }
 
     @JavascriptInterface

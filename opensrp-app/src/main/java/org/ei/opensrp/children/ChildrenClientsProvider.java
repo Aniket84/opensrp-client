@@ -58,12 +58,15 @@ public class ChildrenClientsProvider implements SmartRegisterClientsProvider {
         if (convertView == null){
             convertView = (ViewGroup) inflater().inflate(R.layout.smart_register_ss_child_client, null);
             viewHolder = new ViewHolder();
+            viewHolder.id =  (TextView)convertView.findViewById(R.id.id);
+            viewHolder.name =  (TextView)convertView.findViewById(R.id.name);
+            viewHolder.age =  (TextView)convertView.findViewById(R.id.age);
+            viewHolder.dob =  (TextView)convertView.findViewById(R.id.dob);
 
-
-            viewHolder.id = (TextView)convertView.findViewById(R.id.id);
-            viewHolder.name = (TextView)convertView.findViewById(R.id.name);
-            viewHolder.age = (TextView)convertView.findViewById(R.id.age);
-            viewHolder.dob = (TextView)convertView.findViewById(R.id.dob);
+        //    viewHolder.id = (TextView)convertView.findViewById(R.id.id);
+        //    viewHolder.name = (TextView)convertView.findViewById(R.id.name);
+        //    viewHolder.age = (TextView)convertView.findViewById(R.id.age);
+        //    viewHolder.dob = (TextView)convertView.findViewById(R.id.dob);
 
         }else{
 
