@@ -120,9 +120,9 @@ public class NativeChildrenSmartRegisterActivity extends SecuredNativeSmartRegis
 
     @Override
     protected void onInitialization() {
-        controller = new CommonPersonObjectController(context.allCommonsRepositoryobjects("children"),
+        controller = new CommonPersonObjectController(context.allCommonsRepositoryobjects("Children"),
                 context.allBeneficiaries(), context.listCache(),
-                context.personObjectClientsCache(),"Name","children");
+                context.personObjectClientsCache(),"Name","Children");
         villageController = new VillageController(context.allEligibleCouples(),
                 context.listCache(), context.villagesCache());
         dialogOptionMapper = new DialogOptionMapper();

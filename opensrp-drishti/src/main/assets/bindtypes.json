@@ -6,7 +6,7 @@
       "columns" : [ {"name": "age"}]
     },
    {
-     "name": "children",
+     "name": "Children",
      "columns" : [ ]
    }
  ]
