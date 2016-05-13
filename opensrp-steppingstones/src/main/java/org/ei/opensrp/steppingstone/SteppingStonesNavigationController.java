@@ -3,7 +3,7 @@ package org.ei.opensrp.steppingstone;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
+import org.ei.opensrp.steppingstone.children.NativeChildrenSmartRegisterActivity;
 
 import org.ei.opensrp.view.controller.ANMController;
 
@@ -21,14 +21,14 @@ public class SteppingStonesNavigationController extends org.ei.opensrp.view.cont
     @Override
     public void startECSmartRegistry() {
 
-      //  activity.startActivity(new Intent(activity, HouseHoldSmartRegisterActivity.class));
-      //  SharedPreferences sharedPreferences = getDefaultSharedPreferences(this.activity);
+       activity.startActivity(new Intent(activity, NativeChildrenSmartRegisterActivity.class));
+       SharedPreferences sharedPreferences = getDefaultSharedPreferences(this.activity);
 
 
     }
     @Override
     public void startFPSmartRegistry() {
-      //  activity.startActivity(new Intent(activity, ElcoSmartRegisterActivity.class));
+        activity.startActivity(new Intent(activity, NativeChildrenSmartRegisterActivity.class));
     }
     @Override
     public void startANCSmartRegistry() {

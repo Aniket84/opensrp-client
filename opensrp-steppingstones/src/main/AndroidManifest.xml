@@ -54,6 +54,9 @@
             android:name=".children.NativeChildrenSmartRegisterActivity"
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
             android:screenOrientation="landscape"/>
+        <activity android:name=".NativeHomeActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="landscape"/>
     </application>
 
 
