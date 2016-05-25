@@ -12,6 +12,7 @@ import org.ei.opensrp.view.dialog.SortOption;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 import static java.util.Collections.sort;
@@ -37,8 +38,6 @@ public class CommonPersonObjectController {
 
     ArrayList <ControllerFilterMap> filtermap;
 
-
-
     public enum ByColumnAndByDetails{
         byColumn,byDetails,byrelationalid;
     }
@@ -57,6 +56,16 @@ public class CommonPersonObjectController {
         this.byColumnAndByDetailsNullcheck = byColumnAndByDetailsNullcheck;
 
     }
+
+    public CommonPersonObjectController(AllCommonsRepository allpersons, AllBeneficiaries allBeneficiaries, Cache<String> stringCache, Cache<CommonPersonObjectClients> personClientsCache, String nameString, String bindtype) {
+        this.allpersonobjects = allpersons;
+        this.allBeneficiaries = allBeneficiaries;
+        this.cache = stringCache;
+        this.personObjectClientsCache = personClientsCache;
+        this.nameString = nameString;
+        this.person_CLIENTS_LIST = bindtype+"ClientsList";
+    }
+
     public CommonPersonObjectController(AllCommonsRepository allpersons,
                                         AllBeneficiaries allBeneficiaries, Cache<String> cache,
                                         Cache<CommonPersonObjectClients> personClientsCache, String nameString, String bindtype,String filterkey,String filtervalue,ByColumnAndByDetails byColumnAndByDetails,String null_check_key,ByColumnAndByDetails byColumnAndByDetailsNullcheck ) {
@@ -137,7 +146,7 @@ public class CommonPersonObjectController {
     }
     public CommonPersonObjectController(AllCommonsRepository allpersons,
                                         AllBeneficiaries allBeneficiaries, Cache<String> cache,
-                                        Cache<CommonPersonObjectClients> personClientsCache, String nameString, String bindtype) {
+                                        Cache<CommonPersonObjectClients> personClientsCache, String nameString, String bindtype,ArrayList <ControllerFilterMap> filtermap,ByColumnAndByDetails byColumnAndByDetails,String null_check_key,ByColumnAndByDetails byColumnAndByDetailsNullcheck ) {
         this.allpersonobjects = allpersons;
         this.allBeneficiaries = allBeneficiaries;
         this.cache = cache;
@@ -252,30 +261,30 @@ public class CommonPersonObjectController {
                 if(filtermap != null){
                     for (CommonPersonObject personinlist : p) {
                         boolean filter = false;
-                            Log.v("is filtermap ", "" + filtermap.size());
-                            for(int k = 0;k<filtermap.size();k++) {
-                                filter = filtermap.get(k).filtermapLogic(personinlist);
-                            }
-
-                            if (!isnull(personinlist) && filter) {
-                                CommonPersonObjectClient pClient = new CommonPersonObjectClient(personinlist.getCaseId(), personinlist.getDetails(), personinlist.getDetails().get(nameString));
-//                    pClient.entityID = personinlist.getCaseId();
-                                pClient.setColumnmaps(personinlist.getColumnmaps());
-                                pClients.add(pClient);
-
-                            }
+                        Log.v("is filtermap ", "" + filtermap.size());
+                        for(int k = 0;k<filtermap.size();k++) {
+                            filter = filtermap.get(k).filtermapLogic(personinlist);
                         }
+
+                        if (!isnull(personinlist) && filter) {
+                            CommonPersonObjectClient pClient = new CommonPersonObjectClient(personinlist.getCaseId(), personinlist.getDetails(), personinlist.getDetails().get(nameString));
+//                    pClient.entityID = personinlist.getCaseId();
+                            pClient.setColumnmaps(personinlist.getColumnmaps());
+                            pClients.add(pClient);
+
+                        }
+                    }
                 }
                 else  if(filterkey == null){
                     for (CommonPersonObject personinlist : p) {
 
-                            if (!isnull(personinlist)) {
-                                CommonPersonObjectClient pClient = new CommonPersonObjectClient(personinlist.getCaseId(), personinlist.getDetails(), personinlist.getDetails().get(nameString));
+                        if (!isnull(personinlist)) {
+                            CommonPersonObjectClient pClient = new CommonPersonObjectClient(personinlist.getCaseId(), personinlist.getDetails(), personinlist.getDetails().get(nameString));
 //                    pClient.entityID = personinlist.getCaseId();
-                                pClient.setColumnmaps(personinlist.getColumnmaps());
-                                pClients.add(pClient);
-                            }
+                            pClient.setColumnmaps(personinlist.getColumnmaps());
+                            pClients.add(pClient);
                         }
+                    }
 
                 }else{
                     switch (byColumnAndByDetails){

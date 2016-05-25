@@ -83,12 +83,19 @@ public class ChildrenClientsProvider implements SmartRegisterClientsProvider {
        // viewHolder.age.setText(pc.getDetails().get("Age")!=null?pc.getDetails().get("Age"):"");
       //  viewHolder.dob.setText(pc.getDetails().get("DOB") != null ? pc.getDetails().get("DOB") : "");
         String uidDetails = pc.getDetails().get("UID");
-        String temp = "Aniket"; //value if uidDetails are null
+        String temp = "Default value"; //value if uidDetails are null
         if(uidDetails == null){
             uidDetails = temp;
         }
-        Log.e("User Id",uidDetails );
-        viewHolder.id.setText(uidDetails);
+        Log.e("SteppingStones", uidDetails);
+        Log.e("SteppingStones", pc.getDetails().get("Name"));
+        Log.e("SteppingStones", pc.getDetails().get("Age"));
+        Log.e("SteppingStones", pc.getDetails().get("DOB"));
+        viewHolder.id.setText(pc.getDetails().get("UID") != null ? pc.getDetails().get("UID") : "");
+        viewHolder.name.setText(pc.getDetails().get("Name") != null ? pc.getDetails().get("Name") : "");
+        viewHolder.age.setText(pc.getDetails().get("Age") != null ? pc.getDetails().get("Age") : "");
+        viewHolder.dob.setText(pc.getDetails().get("DOB") != null ? pc.getDetails().get("DOB") : "");
+
 
         convertView.setLayoutParams(clientViewLayoutParams);
         return convertView;

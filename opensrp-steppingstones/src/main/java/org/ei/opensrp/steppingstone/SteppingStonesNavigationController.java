@@ -22,7 +22,7 @@ public class SteppingStonesNavigationController extends org.ei.opensrp.view.cont
     public void startECSmartRegistry() {
 
        activity.startActivity(new Intent(activity, NativeChildrenSmartRegisterActivity.class));
-       SharedPreferences sharedPreferences = getDefaultSharedPreferences(this.activity);
+      // SharedPreferences sharedPreferences = getDefaultSharedPreferences(this.activity);
 
 
     }

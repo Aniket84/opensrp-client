@@ -10,19 +10,19 @@
       },
       {
         "name": "UID",
-        "bind": "/model/instance/ss_child_reg/UID"
+        "bind": "/model/instance/Children/UID"
       },
       {
         "name": "Name",
-        "bind": "/model/instance/ss_child_reg/Name"
+        "bind": "/model/instance/Children/Name"
       },
       {
         "name": "DOB",
-        "bind": "/model/instance/ss_child_reg/DOB"
+        "bind": "/model/instance/Children/DOB"
       },
       {
         "name": "Age",
-        "bind": "/model/instance/ss_child_reg/Age"
+        "bind": "/model/instance/Children/Age"
       }
     ]
   }

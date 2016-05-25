@@ -1,13 +1,14 @@
 package org.ei.opensrp.steppingstone.children;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.TextView;
 
-import org.ei.opensrp.R;
+import org.ei.opensrp.steppingstone.R;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
@@ -53,12 +54,15 @@ public class ChildrenClientsProvider implements SmartRegisterClientsProvider {
         if (convertView == null){
             convertView = (ViewGroup) inflater().inflate(R.layout.smart_register_ss_child_client, null);
             viewHolder = new ViewHolder();
+            viewHolder.id =  (TextView)convertView.findViewById(R.id.id);
+            viewHolder.name =  (TextView)convertView.findViewById(R.id.name);
+            viewHolder.age =  (TextView)convertView.findViewById(R.id.age);
+            viewHolder.dob =  (TextView)convertView.findViewById(R.id.dob);
 
-
-            viewHolder.id = (TextView)convertView.findViewById(R.id.id);
-            viewHolder.name = (TextView)convertView.findViewById(R.id.name);
-            viewHolder.age = (TextView)convertView.findViewById(R.id.age);
-            viewHolder.dob = (TextView)convertView.findViewById(R.id.dob);
+        //    viewHolder.id = (TextView)convertView.findViewById(R.id.id);
+        //    viewHolder.name = (TextView)convertView.findViewById(R.id.name);
+        //    viewHolder.age = (TextView)convertView.findViewById(R.id.age);
+        //    viewHolder.dob = (TextView)convertView.findViewById(R.id.dob);
 
         }else{
 
@@ -68,10 +72,25 @@ public class ChildrenClientsProvider implements SmartRegisterClientsProvider {
 
         CommonPersonObjectClient pc = (CommonPersonObjectClient) smartRegisterClient;
 //
-        viewHolder.id.setText(pc.getDetails().get("UID")!=null?pc.getDetails().get("UID"):"");
-        viewHolder.name.setText(pc.getDetails().get("Name")!=null?pc.getDetails().get("Name"):"");
-        viewHolder.age.setText(pc.getDetails().get("Age")!=null?pc.getDetails().get("Age"):"");
+       // viewHolder.id.setText(pc.getDetails().get("UID")!=null?pc.getDetails().get("UID"):"");
+       // Log.v("User Id", pc.getDetails().get("UID") != null ? pc.getDetails().get("UID"):"");
+       // viewHolder.name.setText(pc.getDetails().get("Name")!=null?pc.getDetails().get("Name"):"");
+       // viewHolder.age.setText(pc.getDetails().get("Age")!=null?pc.getDetails().get("Age"):"");
+      //  viewHolder.dob.setText(pc.getDetails().get("DOB") != null ? pc.getDetails().get("DOB") : "");
+        String uidDetails = pc.getDetails().get("UID");
+        String temp = "Default value"; //value if uidDetails are null
+        if(uidDetails == null){
+            uidDetails = temp;
+        }
+        Log.e("SteppingStones", uidDetails);
+        Log.e("SteppingStones", pc.getDetails().get("Name"));
+        Log.e("SteppingStones", pc.getDetails().get("Age"));
+        Log.e("SteppingStones", pc.getDetails().get("DOB"));
+        viewHolder.id.setText(pc.getDetails().get("UID") != null ? pc.getDetails().get("UID") : "");
+        viewHolder.name.setText(pc.getDetails().get("Name") != null ? pc.getDetails().get("Name") : "");
+        viewHolder.age.setText(pc.getDetails().get("Age") != null ? pc.getDetails().get("Age") : "");
         viewHolder.dob.setText(pc.getDetails().get("DOB") != null ? pc.getDetails().get("DOB") : "");
+
 
         convertView.setLayoutParams(clientViewLayoutParams);
         return convertView;
