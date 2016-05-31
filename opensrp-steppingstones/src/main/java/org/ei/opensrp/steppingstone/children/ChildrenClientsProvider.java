@@ -77,7 +77,7 @@ public class ChildrenClientsProvider implements SmartRegisterClientsProvider {
        // viewHolder.name.setText(pc.getDetails().get("Name")!=null?pc.getDetails().get("Name"):"");
        // viewHolder.age.setText(pc.getDetails().get("Age")!=null?pc.getDetails().get("Age"):"");
       //  viewHolder.dob.setText(pc.getDetails().get("DOB") != null ? pc.getDetails().get("DOB") : "");
-        String uidDetails = pc.getDetails().get("UID");
+     /*   String uidDetails = pc.getDetails().get("UID");
         String temp = "Default value"; //value if uidDetails are null
         if(uidDetails == null){
             uidDetails = temp;
@@ -85,7 +85,7 @@ public class ChildrenClientsProvider implements SmartRegisterClientsProvider {
         Log.e("SteppingStones", uidDetails);
         Log.e("SteppingStones", pc.getDetails().get("Name"));
         Log.e("SteppingStones", pc.getDetails().get("Age"));
-        Log.e("SteppingStones", pc.getDetails().get("DOB"));
+        Log.e("SteppingStones", pc.getDetails().get("DOB"));  */
         viewHolder.id.setText(pc.getDetails().get("UID") != null ? pc.getDetails().get("UID") : "");
         viewHolder.name.setText(pc.getDetails().get("Name") != null ? pc.getDetails().get("Name") : "");
         viewHolder.age.setText(pc.getDetails().get("Age") != null ? pc.getDetails().get("Age") : "");
